@@ -4,16 +4,14 @@ import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 
 import MobileNavScreen from "./MobileNavScreen";
-
+import Logo from "./Logo";
 const Navbar = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
 
   return (
     <>
       <nav className="flex items-center justify-between md:justify-start px-8 w-screen h-24">
-        <h1 className="text-2xl md:text-4xl font-thin w-fit">
-          Zhang Photography
-        </h1>
+        <Logo />
         <div className="hidden md:flex ml-16 items-center justify-between w-1/5">
           <Link href="/">home</Link>
 

@@ -8,7 +8,11 @@ module.exports = {
       "light-bg": "#f6f6f6",
       black: "#423E37",
     },
-    extend: {},
+    extend: {
+      transitionProperty: {
+        fade: "opacity, visibility",
+      },
+    },
   },
   plugins: [],
 };

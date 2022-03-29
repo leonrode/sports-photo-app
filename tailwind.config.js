@@ -4,14 +4,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {
-      "light-bg": "#f6f6f6",
-      gray: "#606060",
-      black: "#423E37",
-    },
     extend: {
       transitionProperty: {
         fade: "opacity, visibility",
+      },
+      colors: {
+        "light-bg": "#f6f6f6",
+        gray: "#606060",
+        black: "#423E37",
       },
     },
   },

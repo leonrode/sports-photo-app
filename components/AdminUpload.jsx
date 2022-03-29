@@ -2,42 +2,35 @@ import { FiUpload } from "react-icons/fi";
 
 import { useState } from "react";
 
+import AdminCreateYear from "./AdminCreateYear";
+import AdminCreateEvent from "./AdminCreateEvent";
 const AdminUpload = () => {
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
-  const dragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const dragEnter = (e) => {
-    setIsDraggingOver(true);
-    e.preventDefault();
-  };
-
-  const dragLeave = (e) => {
-    setIsDraggingOver(false);
-    e.preventDefault();
-  };
-
-  const fileDrop = (e) => {
-    e.preventDefault();
-    const files = e.dataTransfer.files;
-    console.log(files);
-  };
-
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
     <>
-      <div
-        onDrop={fileDrop}
-        onDragOver={dragOver}
-        onDragLeave={dragLeave}
-        onDragEnter={dragEnter}
-        className={`border-dashed border-2 border-rose-500 w-1/2 h-96 flex flex-col items-center justify-center`}
-      >
-        <FiUpload size={45} className="text-gray" />
-        <h1 className="text-2xl mt-12 font-normal">
-          Drag and drop your files here
+      <div className="flex justify-center items-center w-1/2">
+        <h1
+          onClick={() => setActiveIndex(0)}
+          className={`${
+            activeIndex === 0
+              ? "font-bold text-black border-b-2 border-b-blue-500"
+              : "font-normal text-gray"
+          } cursor-pointer`}
+        >
+          Create year folder
+        </h1>
+        <h1
+          onClick={() => setActiveIndex(1)}
+          className={`${
+            activeIndex === 1
+              ? "font-bold text-black border-b-2 border-b-blue-500"
+              : "font-normal text-gray"
+          } ml-8 cursor-pointer`}
+        >
+          Add a new event
         </h1>
       </div>
+      {activeIndex === 0 ? <AdminCreateYear /> : <AdminCreateEvent />}
     </>
   );
 };

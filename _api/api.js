@@ -11,4 +11,13 @@ const adminLogin = async (accessCode) => {
   }
 };
 
-export { adminLogin };
+const fetchYears = async () => {
+  try {
+    const res = await axios.get("/api/years");
+    return res.data.years;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export { adminLogin, fetchYears };

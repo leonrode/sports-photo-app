@@ -8,7 +8,7 @@ const AdminUpload = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <>
-      <div className="flex justify-center items-center w-1/2">
+      <div className="flex justify-center items-center w-full md:w-1/2 ">
         <h1
           onClick={() => setActiveIndex(0)}
           className={`${

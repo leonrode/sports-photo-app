@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { FiUpload, FiMapPin, FiCalendar } from "react-icons/fi";
+import { FiUpload, FiMapPin, FiCalendar, FiDribbble } from "react-icons/fi";
 
 import { fetchYears } from "../_api/api";
 const AdminCreateEvent = () => {
@@ -59,7 +59,7 @@ const AdminCreateEvent = () => {
     })();
   }, []);
   return (
-    <>
+    <div className="w-full p-2 md:p-0 flex flex-col items-center">
       <div
         onDrop={fileDrop}
         onDragOver={dragOver}
@@ -67,7 +67,7 @@ const AdminCreateEvent = () => {
         onDragEnter={dragEnter}
         className={`border-dashed border-[3px] ${
           isDraggingOver ? "border-blue-500" : "border-black"
-        } mt-24 w-1/2 h-96 flex flex-col items-center justify-center`}
+        } mt-24 w-full md:w-1/2 h-96 flex flex-col items-center justify-center `}
       >
         <FiUpload
           size={45}
@@ -96,7 +96,7 @@ const AdminCreateEvent = () => {
       {invalidFiles.map((file, index) => (
         <div
           key={index}
-          className="pl-4 mt-4 flex items-center w-1/2 border-l-2 border-l-red-500"
+          className="pl-4 mt-4 flex items-center w-full md:w-1/2 border-l-2 border-l-red-500"
         >
           <h3 className="text-red-500">
             <span className="font-bold">{file.name}</span> is an invalid type (
@@ -107,7 +107,7 @@ const AdminCreateEvent = () => {
       {files.map((file, index) => (
         <div
           key={index}
-          className="pl-4 mt-4 flex items-center w-1/2 border-l-2 border-l-green-500"
+          className="pl-4 mt-4 flex items-center w-full md:w-1/2 border-l-2 border-l-green-500"
         >
           <h3 className="text-green-500">
             <span className="font-bold">{file.name}</span> successfully uploaded
@@ -121,7 +121,7 @@ const AdminCreateEvent = () => {
             setInvalidFiles([]);
             fileRef.current.value = [];
           }}
-          className="mt-4 border px-4 py-2 rounded-md cursor-pointer"
+          className="mt-4 border w-fit md:w-auto px-4 py-2 rounded-md cursor-pointer"
         >
           Clear files
         </div>
@@ -130,7 +130,7 @@ const AdminCreateEvent = () => {
       <div className="flex mt-8 flex-col items-start">
         <div className="flex items-center">
           <span>Add to year: </span>
-          <select className="ml-4">
+          <select className="ml-4 p-2">
             {years.map((year, index) => (
               <option key={index}>{year.year}</option>
             ))}
@@ -162,8 +162,44 @@ const AdminCreateEvent = () => {
             type="date"
           />
         </div>
+        <div className="mt-4 flex justify-start items-center relative">
+          <FiDribbble
+            size={20}
+            className="text-black mb-2 absolute  -right-6"
+          />
+          <select className="p-2 w-full">
+            <option>Skiing</option>
+            <option>Cheerleading</option>
+            <option>Cross Country</option>
+            <option>Field hockey</option>
+            <option>Football</option>
+            <option>Soccer</option>
+            <option>Soccer</option>
+            <option>Swimming</option>
+            <option>Tennis</option>
+            <option>Volleyball</option>
+            <option>Basketball</option>
+            <option>Bowling</option>
+            <option>Gymnastics</option>
+            <option>Ice Hockey</option>
+            <option>Indoor Track</option>
+            <option>Wrestling</option>
+            <option>Baseball</option>
+            <option>Flag football</option>
+            <option>Crew</option>
+            <option>Golf</option>
+            <option>Lacrosse</option>
+            <option>Softball</option>
+            <option>Track and Field</option>
+            <option>Ultimate Frisbee</option>
+          </select>
+        </div>
       </div>
-    </>
+      <div className="mt-8 px-4 py-2 w-fit md:w-auto border-2 border-black rounded-md cursor-pointer">
+        Create event
+      </div>
+      <div className="my-24"></div>
+    </div>
   );
 };
 

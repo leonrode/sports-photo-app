@@ -8,7 +8,7 @@ const AdminLogin = ({ onSuccessfulAuthorization }) => {
     <>
       <h1 className="mt-24 text-2xl md:text-4xl">Admin page</h1>
       <p className="mt-4">
-        If you're not Elliott, you probably shouldn't be here
+        If you&lapos;re not Elliott, you probably shouldn&lapos;t be here
       </p>
       <input
         ref={codeRef}

@@ -38,7 +38,7 @@ const AdminCreateEvent = () => {
   };
 
   const filePick = (files) => {
-    const validFileTypes = ["image/png", "img/jpeg"];
+    const validFileTypes = ["image/png", "image/jpeg"];
     if (files.length > 0) {
       Array.from(files).forEach((file) => {
         if (!validFileTypes.includes(file.type)) {

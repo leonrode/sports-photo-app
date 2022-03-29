@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FiUpload, FiMapPin, FiCalendar } from "react-icons/fi";
 
 import { fetchYears } from "../_api/api";
@@ -7,6 +7,7 @@ const AdminCreateEvent = () => {
   const [files, setFiles] = useState([]);
   const [invalidFiles, setInvalidFiles] = useState([]);
   const [years, setYears] = useState([]);
+  const fileRef = useRef(null);
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -81,18 +82,17 @@ const AdminCreateEvent = () => {
           Drag and drop your files here
         </h1>
       </div>
-      <div className="mt-4 flex items-center">
-        <span>Or choose files: </span>
-        <input
-          type="file"
-          className="ml-2 w-[80px]"
-          accept="image/png, image/jpeg"
-          multiple
-          onChange={(e) => {
-            filePick(e.target.files);
-          }}
-        />
-      </div>
+
+      <input
+        ref={fileRef}
+        type="file"
+        className="mt-4"
+        accept="image/png, image/jpeg"
+        multiple
+        onChange={(e) => {
+          filePick(e.target.files);
+        }}
+      />
       {invalidFiles.map((file, index) => (
         <div
           key={index}
@@ -119,6 +119,7 @@ const AdminCreateEvent = () => {
           onClick={() => {
             setFiles([]);
             setInvalidFiles([]);
+            fileRef.current.value = [];
           }}
           className="mt-4 border px-4 py-2 rounded-md cursor-pointer"
         >

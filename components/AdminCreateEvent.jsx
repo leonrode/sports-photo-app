@@ -1,12 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { FiUpload, FiMapPin, FiCalendar, FiDribbble } from "react-icons/fi";
 
-import { fetchYears } from "../_api/api";
+import { useRouter } from "next/router";
+
+import { fetchYears, createEvent } from "../_api/api";
 const AdminCreateEvent = () => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [files, setFiles] = useState([]);
   const [invalidFiles, setInvalidFiles] = useState([]);
   const [years, setYears] = useState([]);
+
+  const router = useRouter();
+
+  const yearRef = useRef(null);
+  const titleRef = useRef(null);
+  const locationRef = useRef(null);
+  const dateRef = useRef(null);
+  const sportRef = useRef(null);
+
   const fileRef = useRef(null);
   const dragOver = (e) => {
     e.preventDefault();
@@ -130,7 +141,7 @@ const AdminCreateEvent = () => {
       <div className="flex mt-8 flex-col items-start">
         <div className="flex items-center">
           <span>Add to year: </span>
-          <select className="ml-4 p-2">
+          <select ref={yearRef} className="ml-4 p-2">
             {years.map((year, index) => (
               <option key={index}>{year.year}</option>
             ))}
@@ -138,6 +149,7 @@ const AdminCreateEvent = () => {
         </div>
         <div className="flex items-center">
           <input
+            ref={titleRef}
             className=" pb-2 mt-4 outline-none bg-transparent border-b-2 border-b-black"
             placeholder="Event Title"
             type="text"
@@ -146,6 +158,7 @@ const AdminCreateEvent = () => {
         <div className="mt-4 flex items-center relative">
           <FiMapPin size={20} className="text-black mb-2 absolute  -right-6" />
           <input
+            ref={locationRef}
             className="pb-2 outline-none bg-transparent border-b-2 border-b-black"
             placeholder="Location"
             type="text"
@@ -157,8 +170,8 @@ const AdminCreateEvent = () => {
             className="text-black mb-2 absolute  -right-6"
           />
           <input
+            ref={dateRef}
             className="pb-2  outline-none bg-transparent border-b-2 border-b-black"
-            placeholder="Location"
             type="date"
           />
         </div>
@@ -167,7 +180,7 @@ const AdminCreateEvent = () => {
             size={20}
             className="text-black mb-2 absolute  -right-6"
           />
-          <select className="p-2 w-full">
+          <select ref={sportRef} className="p-2 w-full">
             <option>Skiing</option>
             <option>Cheerleading</option>
             <option>Cross Country</option>
@@ -195,7 +208,21 @@ const AdminCreateEvent = () => {
           </select>
         </div>
       </div>
-      <div className="mt-8 px-4 py-2 w-fit md:w-auto border-2 border-black rounded-md cursor-pointer">
+      <div
+        onClick={async () => {
+          const res = await createEvent(
+            titleRef.current.value,
+            yearRef.current.value,
+            locationRef.current.value,
+            dateRef.current.value,
+            sportRef.current.value,
+            files
+          );
+
+          router.push(`/event/${res.entry.slug}`);
+        }}
+        className="mt-8 px-4 py-2 w-fit md:w-auto border-2 border-black rounded-md cursor-pointer"
+      >
         Create event
       </div>
       <div className="my-24"></div>

@@ -29,6 +29,16 @@ const AdminUpload = () => {
         >
           Add a new event
         </h1>
+        <h1
+          onClick={() => setActiveIndex(2)}
+          className={`${
+            activeIndex === 2
+              ? "font-bold text-black border-b-2 border-b-blue-500"
+              : "font-normal text-gray"
+          } ml-8 cursor-pointer`}
+        >
+          Add photos to an event
+        </h1>
       </div>
       {activeIndex === 0 ? <AdminCreateYear /> : <AdminCreateEvent />}
     </>

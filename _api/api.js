@@ -20,4 +20,25 @@ const fetchYears = async () => {
   }
 };
 
-export { adminLogin, fetchYears };
+const createEvent = async (title, year, location, date, sport, files) => {
+  const data = new FormData();
+  Array.from(files).forEach((file) => {
+    data.append("file", file);
+  });
+
+  data.set("title", title);
+  data.set("year", year);
+  data.set("location", location);
+  data.set("date", date);
+  data.set("sport", sport);
+
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+  const res = await axios.post("/api/event/create", data, config);
+  return res.data;
+};
+
+export { adminLogin, fetchYears, createEvent };

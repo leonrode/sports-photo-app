@@ -55,10 +55,15 @@ const createYear = async (year, file) => {
   return res.data;
 };
 
+const getEvents = async (year) => {
+  const res = await axios.get(`/api/year/events?year=${year}`);
+  return res.data;
+};
+
 const getEvent = async (slug) => {
   const res = await axios.get(`/api/event/get?slug=${slug}`);
 
   return res.data;
 };
 
-export { adminLogin, fetchYears, createEvent, createYear, getEvent };
+export { adminLogin, fetchYears, createEvent, createYear, getEvents, getEvent };

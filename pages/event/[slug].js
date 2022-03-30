@@ -45,7 +45,7 @@ const Event = () => {
 
           <div className="mt-8 grid gap-y-8 gap-x-16 grid-cols-3">
             {event.images.map((image) => (
-              <EventImage link={image.link}></EventImage>
+              <EventImage key={image.link} link={image.link}></EventImage>
             ))}
           </div>
         </div>

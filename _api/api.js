@@ -13,7 +13,7 @@ const adminLogin = async (accessCode) => {
 
 const fetchYears = async () => {
   try {
-    const res = await axios.get("/api/years");
+    const res = await axios.get("/api/year/get");
     return res.data.years;
   } catch (e) {
     throw new Error(e);
@@ -41,10 +41,24 @@ const createEvent = async (title, year, location, date, sport, files) => {
   return res.data;
 };
 
+const createYear = async (year, file) => {
+  const data = new FormData();
+  data.set("year", year);
+  data.set("file", file);
+
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+  const res = await axios.post("/api/year/create", data, config);
+  return res.data;
+};
+
 const getEvent = async (slug) => {
   const res = await axios.get(`/api/event/get?slug=${slug}`);
 
   return res.data;
 };
 
-export { adminLogin, fetchYears, createEvent, getEvent };
+export { adminLogin, fetchYears, createEvent, createYear, getEvent };

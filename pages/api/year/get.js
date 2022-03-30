@@ -1,4 +1,4 @@
-import clientPromise from "../../lib/mongodb";
+import clientPromise from "../../../lib/mongodb";
 
 const handler = async (req, res) => {
   if (req.method === "GET") {
@@ -6,6 +6,9 @@ const handler = async (req, res) => {
     const db = client.db("data");
 
     const years = await db.collection("years").find().toArray();
+    years.forEach((year) => {
+      delete year._id;
+    });
     return res.json({ years });
   }
 

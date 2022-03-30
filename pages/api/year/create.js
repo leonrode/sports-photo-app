@@ -26,39 +26,31 @@ const handler = async (req, res) => {
       const id = new ObjectId();
       const entry = {
         ...fields,
-        slug: fields.title.toLowerCase().split(" ").join("-"),
+        cover: {},
         _id: id,
-        images: [],
+        events: [],
       };
 
-      if (files.file) {
-        const _files = Array.isArray(files.file) ? files.file : [files.file];
+      try {
+        const imgurResponse = await imgurClient.upload({
+          image: fs.createReadStream(files.file.filepath),
+          type: "stream",
+        });
 
-        for (const file of _files) {
-          try {
-            const imgurResponse = await imgurClient.upload({
-              image: fs.createReadStream(file.filepath),
-              type: "stream",
-            });
-            entry.images.push({
-              link: imgurResponse.data.link,
-              hash: imgurResponse.data.deletehash,
-              datetime: imgurResponse.data.datetime,
-            });
-          } catch (e) {
-            return res.status(500).send();
-          }
-        }
+        entry.cover = {
+          link: imgurResponse.data.link,
+          hash: imgurResponse.data.deletehash,
+          datetime: imgurResponse.data.datetime,
+        };
+      } catch (e) {
+        return res.status(500).send();
       }
 
       // create event in database
       const client = await clientPromise;
       const db = client.db("data");
       try {
-        const insertResult = db.collection("events").insertOne(entry);
-        const updateResult = db
-          .collection("years")
-          .updateOne({ year: entry.year }, { $push: { events: id } });
+        const insertResult = db.collection("years").insertOne(entry);
       } catch (e) {
         console.error(e);
         return res.status(500).send();

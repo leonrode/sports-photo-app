@@ -41,4 +41,10 @@ const createEvent = async (title, year, location, date, sport, files) => {
   return res.data;
 };
 
-export { adminLogin, fetchYears, createEvent };
+const getEvent = async (slug) => {
+  const res = await axios.get(`/api/event/get?slug=${slug}`);
+
+  return res.data;
+};
+
+export { adminLogin, fetchYears, createEvent, getEvent };

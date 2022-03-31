@@ -31,9 +31,9 @@ const Event = () => {
         <div className="px-64 py-16">
           <div className="flex items-center">
             <FiChevronLeft size={20} className="text-gray" />{" "}
-            <Link href="/">
+            <Link href={`/year/${event.year}`}>
               <span className="cursor-pointer text-gray font-lgiht">
-                back to 2022 events
+                back to {event.year} events
               </span>
             </Link>
           </div>

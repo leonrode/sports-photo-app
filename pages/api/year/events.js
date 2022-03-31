@@ -8,9 +8,10 @@ const handler = async (req, res) => {
     const year = req.query.year;
     if (!year) return res.status(400).send();
 
-    const filter = { year };
+    const query = { year: year };
+    // console.log(filter);
+    const events = await db.collection("events").find(query).toArray();
 
-    const events = await db.collection("events").find({ filter }).toArray();
     events.forEach((event) => {
       delete event._id;
     });

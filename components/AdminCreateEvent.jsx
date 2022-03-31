@@ -214,9 +214,12 @@ const AdminCreateEvent = () => {
             titleRef.current.value,
             yearRef.current.value,
             locationRef.current.value,
-            dateRef.current.value,
+            new Date(dateRef.current.value),
             sportRef.current.value,
-            files
+            files,
+            (progress) => {
+              console.log(progress);
+            }
           );
 
           router.push(`/event/${res.entry.slug}`);

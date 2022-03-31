@@ -20,7 +20,15 @@ const fetchYears = async () => {
   }
 };
 
-const createEvent = async (title, year, location, date, sport, files) => {
+const createEvent = async (
+  title,
+  year,
+  location,
+  date,
+  sport,
+  files,
+  progressCallback
+) => {
   const data = new FormData();
   Array.from(files).forEach((file) => {
     data.append("file", file);
@@ -29,7 +37,7 @@ const createEvent = async (title, year, location, date, sport, files) => {
   data.set("title", title);
   data.set("year", year);
   data.set("location", location);
-  data.set("date", date);
+  data.set("date", date.toString());
   data.set("sport", sport);
 
   const config = {
@@ -38,6 +46,13 @@ const createEvent = async (title, year, location, date, sport, files) => {
     },
   };
   const res = await axios.post("/api/event/create", data, config);
+
+  const source = new EventSource("/api/event/create");
+  source.onmessage = (e) => {
+    const data = e.data;
+    progressCallback(data);
+    console.log(data);
+  };
   return res.data;
 };
 

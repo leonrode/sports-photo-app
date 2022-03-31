@@ -1,20 +1,18 @@
 import clientPromise from "../../../lib/mongodb";
-
+import { randomId } from "../../../lib/utils";
 import formidable from "formidable";
-import fs from "fs";
 import { ObjectId } from "mongodb";
 
-import { ImgurClient } from "imgur";
+import cloudinary from "cloudinary";
+import fs from "fs";
+import path from "path";
+import AWS from "aws-sdk";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const form = new formidable.IncomingForm({
       keepExtensions: true,
       multiples: true,
-    });
-
-    const imgurClient = new ImgurClient({
-      clientId: process.env.IMGUR_CLIENT_ID,
     });
 
     return form.parse(req, async (err, fields, files) => {
@@ -26,26 +24,30 @@ const handler = async (req, res) => {
       const id = new ObjectId();
       const entry = {
         ...fields,
-        slug: fields.title.toLowerCase().split(" ").join("-"),
+        date: new Date(fields.date),
+        slug: randomId(),
         _id: id,
+
         images: [],
       };
 
       if (files.file) {
+        const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
         const _files = Array.isArray(files.file) ? files.file : [files.file];
 
         for (const file of _files) {
           try {
-            const imgurResponse = await imgurClient.upload({
-              image: fs.createReadStream(file.filepath),
-              type: "stream",
+            const upload = s3.upload({
+              Bucket: "elliottzhangphoto",
+              Key: path.basename(file.filepath),
+              Body: fs.createReadStream(file.filepath),
             });
-            entry.images.push({
-              link: imgurResponse.data.link,
-              hash: imgurResponse.data.deletehash,
-              datetime: imgurResponse.data.datetime,
-            });
+
+            const promise = upload.promise();
+            const data = await promise;
+            entry.images.push({ link: data.Location, key: data.Key });
           } catch (e) {
+            console.error(e);
             return res.status(500).send();
           }
         }

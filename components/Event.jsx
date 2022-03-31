@@ -17,7 +17,7 @@ const Event = ({ event }) => {
   console.log(event);
   return (
     <Link href={`/event/${event.slug}`}>
-      <div className="group relative h-fit full cursor-pointer">
+      <div className="group relative h-fit w-fit cursor-pointer">
         <img
           className="rounded-xl "
           src={event.images[0] ? event.images[0].link : "/placeholder.png"}

@@ -28,7 +28,7 @@ const Event = () => {
   return (
     <Layout>
       {event && (
-        <div className="px-64 py-16">
+        <div className="md:px-16 md:py-4 lg:px-48 lg:py-16">
           <div className="flex items-center">
             <FiChevronLeft size={20} className="text-gray" />{" "}
             <Link href={`/year/${event.year}`}>
@@ -43,7 +43,7 @@ const Event = () => {
             <span className="font-bold">{event.title}</span>
           </h1>
 
-          <div className="mt-8 grid gap-y-8 gap-x-16 grid-cols-3">
+          <div className=" mt-8 grid gap-y-8 gap-x-16 md:grid-cols-3 ">
             {event.images.map((image) => (
               <EventImage key={image.link} link={image.link}></EventImage>
             ))}

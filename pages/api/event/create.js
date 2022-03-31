@@ -41,14 +41,14 @@ const handler = async (req, res) => {
 
         for (const file of _files) {
           try {
-            const upload = s3.upload({
-              Bucket: "elliottzhangphoto",
-              Key: path.basename(file.filepath),
-              Body: fs.createReadStream(file.filepath),
-            });
+            const data = await s3
+              .upload({
+                Bucket: "elliottzhangphoto",
+                Key: path.basename(file.filepath),
+                Body: fs.createReadStream(file.filepath),
+              })
+              .promise();
 
-            const promise = upload.promise();
-            const data = await promise;
             entry.images.push({ link: data.Location, key: data.Key });
           } catch (e) {
             console.error(e);

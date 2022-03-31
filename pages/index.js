@@ -22,10 +22,10 @@ export default function Home() {
   return (
     <Layout>
       {years && (
-        <div className="px-64 py-16">
-          <div className="mt-8 grid gap-y-8 gap-x-16 grid-cols-3">
+        <div className="md:px-16 md:py-4 lg:px-48 lg:py-16">
+          <div className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-3">
             {years.map((year, index) => (
-              <YearFolder key={index} link={year.cover.link}></YearFolder>
+              <YearFolder key={index} year={year}></YearFolder>
             ))}
           </div>
         </div>

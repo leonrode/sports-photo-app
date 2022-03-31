@@ -1,11 +1,18 @@
-import { FiChevronRIght } from "react-icons/fi";
-
-const YearFolder = ({ link }) => {
+import { FiChevronRight } from "react-icons/fi";
+import Link from "next/link";
+const YearFolder = ({ year }) => {
   return (
-    <div className=" h-fit">
-      <img className="rounded-xl" src={link}></img>
-      <div className=""></div>
-    </div>
+    <Link href={`/year/${year.year}`}>
+      <div className="group relative h-fit w-fit cursor-pointer">
+        <img className="rounded-xl" src={year.cover.link}></img>
+        <div className="py-2 flex justify-between items-center px-4 absolute bottom-0 rounded-br-lg rounded-bl-lg w-full bg-white">
+          <div>
+            <h1 className="text-xl font-bold">{year.year}</h1>
+          </div>
+          <FiChevronRight size={30} />
+        </div>
+      </div>
+    </Link>
   );
 };
 

@@ -32,7 +32,11 @@ const handler = async (req, res) => {
       };
 
       if (files.file) {
-        const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+        const s3 = new AWS.S3({
+          apiVersion: "2006-03-01",
+          accessKeyId: process.env.AWS_ACCESS_KEY,
+          secretAccessKey: process.env.AWS_SECRET,
+        });
         const _files = Array.isArray(files.file) ? files.file : [files.file];
 
         for (const file of _files) {

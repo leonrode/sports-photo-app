@@ -171,7 +171,8 @@ const AdminCreateEvent = () => {
           />
           <input
             ref={dateRef}
-            className="pb-2  outline-none bg-transparent border-b-2 border-b-black"
+            // placeholder="mm / dd / yyyy"
+            className="pb-2 w-full outline-none bg-light-bg border-b-2 border-b-black"
             type="date"
           />
         </div>

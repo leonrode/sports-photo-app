@@ -3,6 +3,8 @@ import { randomId } from "../../../lib/utils";
 import formidable from "formidable";
 import { ObjectId } from "mongodb";
 
+import { s3upload } from "../../../lib/aws";
+
 import cloudinary from "cloudinary";
 import fs from "fs";
 import path from "path";
@@ -32,29 +34,9 @@ const handler = async (req, res) => {
       };
 
       if (files.file) {
-        const s3 = new AWS.S3({
-          apiVersion: "2006-03-01",
-          accessKeyId: process.env.A_ACCESS_KEY,
-          secretAccessKey: process.env.A_SECRET,
-        });
         const _files = Array.isArray(files.file) ? files.file : [files.file];
 
-        for (const file of _files) {
-          try {
-            const data = await s3
-              .upload({
-                Bucket: "elliottzhangphoto",
-                Key: path.basename(file.filepath),
-                Body: fs.createReadStream(file.filepath),
-              })
-              .promise();
-
-            entry.images.push({ link: data.Location, key: data.Key });
-          } catch (e) {
-            console.error(e);
-            return res.status(500).send();
-          }
-        }
+        entry.images = await s3upload(_files);
       }
 
       // create event in database

@@ -1,7 +1,6 @@
 import clientPromise from "../../../lib/mongodb";
 
 import formidable from "formidable";
-import fs from "fs";
 import { ObjectId } from "mongodb";
 import { s3upload } from "../../../lib/aws";
 const handler = async (req, res) => {

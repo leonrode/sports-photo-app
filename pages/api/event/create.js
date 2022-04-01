@@ -5,11 +5,6 @@ import { ObjectId } from "mongodb";
 
 import { s3upload } from "../../../lib/aws";
 
-import cloudinary from "cloudinary";
-import fs from "fs";
-import path from "path";
-import AWS from "aws-sdk";
-
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const form = new formidable.IncomingForm({

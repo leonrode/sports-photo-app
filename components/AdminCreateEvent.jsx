@@ -3,20 +3,21 @@ import { FiUpload, FiMapPin, FiCalendar, FiDribbble } from "react-icons/fi";
 
 import { useRouter } from "next/router";
 
+import SportDropdown from "./SportDropdown";
+
 import { fetchYears, createEvent } from "../_api/api";
 const AdminCreateEvent = () => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [files, setFiles] = useState([]);
   const [invalidFiles, setInvalidFiles] = useState([]);
   const [years, setYears] = useState([]);
-
+  const [sport, setSport] = useState("Skiing");
   const router = useRouter();
 
   const yearRef = useRef(null);
   const titleRef = useRef(null);
   const locationRef = useRef(null);
   const dateRef = useRef(null);
-  const sportRef = useRef(null);
 
   const fileRef = useRef(null);
   const dragOver = (e) => {
@@ -181,32 +182,10 @@ const AdminCreateEvent = () => {
             size={20}
             className="text-black mb-2 absolute  -right-6"
           />
-          <select ref={sportRef} className="p-2 w-full">
-            <option>Skiing</option>
-            <option>Cheerleading</option>
-            <option>Cross Country</option>
-            <option>Field hockey</option>
-            <option>Football</option>
-            <option>Soccer</option>
-            <option>Soccer</option>
-            <option>Swimming</option>
-            <option>Tennis</option>
-            <option>Volleyball</option>
-            <option>Basketball</option>
-            <option>Bowling</option>
-            <option>Gymnastics</option>
-            <option>Ice Hockey</option>
-            <option>Indoor Track</option>
-            <option>Wrestling</option>
-            <option>Baseball</option>
-            <option>Flag football</option>
-            <option>Crew</option>
-            <option>Golf</option>
-            <option>Lacrosse</option>
-            <option>Softball</option>
-            <option>Track and Field</option>
-            <option>Ultimate Frisbee</option>
-          </select>
+          <SportDropdown
+            className="p-2 w-full"
+            _onChange={(value) => setSport(value)}
+          />
         </div>
       </div>
       <div
@@ -216,7 +195,7 @@ const AdminCreateEvent = () => {
             yearRef.current.value,
             locationRef.current.value,
             new Date(dateRef.current.value),
-            sportRef.current.value,
+            sport,
             files,
             (progress) => {
               console.log(progress);

@@ -12,19 +12,22 @@ import { FiChevronLeft } from "react-icons/fi";
 
 import Link from "next/link";
 
+import { sortEventsByDate } from "../../lib/utils";
+
 const Year = () => {
   const router = useRouter();
   const [events, setEvents] = useState([]);
-
+  const [recentFirst, setRecentFirst] = useState(true);
   useEffect(() => {
     if (router.isReady) {
       (async () => {
         const res = await getEvents(router.query.year);
-
-        setEvents(res.events);
+        const sorted = sortEventsByDate(res.events, recentFirst);
+        console.log(sorted);
+        setEvents(sorted);
       })();
     }
-  }, [router.isReady]);
+  }, [router.isReady, recentFirst]);
 
   return (
     <Layout>
@@ -47,7 +50,16 @@ const Year = () => {
           ></input>
 
           <div className="flex items-center">
-            <select className="mt-8 bg-transparent text-xl">
+            <select
+              onChange={(e) => {
+                if (e.target.value === "Most recent first") {
+                  setRecentFirst(true);
+                } else {
+                  setRecentFirst(false);
+                }
+              }}
+              className="mt-8 bg-transparent text-xl"
+            >
               <option>Most recent first</option>
               <option>Oldest first</option>
             </select>

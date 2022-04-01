@@ -14,7 +14,6 @@ import { parseDate } from "../lib/utils";
 import Link from "next/link";
 
 const Event = ({ event }) => {
-  console.log(event);
   return (
     <Link href={`/event/${event.slug}`}>
       <div className="group relative h-fit w-fit cursor-pointer">

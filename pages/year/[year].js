@@ -5,29 +5,31 @@ import { useRouter } from "next/router";
 import { getEvents } from "../../_api/api";
 
 import Layout from "../../components/Layout";
-
 import Event from "../../components/Event";
-
+import SportFilter from "../../components/SportFilter";
 import { FiChevronLeft } from "react-icons/fi";
 
 import Link from "next/link";
 
-import { sortEventsByDate } from "../../lib/utils";
+import { sortEventsByDate,filterEventsBySport } from "../../lib/utils";
 
 const Year = () => {
   const router = useRouter();
   const [events, setEvents] = useState([]);
+  const [originalEvents, setOrigiginalEvents] = useState([]);
   const [recentFirst, setRecentFirst] = useState(true);
+  const [sport, setSport] = useState("All Sports");
   useEffect(() => {
     if (router.isReady) {
       (async () => {
         const res = await getEvents(router.query.year);
+        setOrigiginalEvents(res.events)
         const sorted = sortEventsByDate(res.events, recentFirst);
-        console.log(sorted);
-        setEvents(sorted);
+        const filtered = filterEventsBySport(sorted, sport);
+        setEvents(filtered);
       })();
     }
-  }, [router.isReady, recentFirst]);
+  }, [router.isReady, recentFirst, sport]);
 
   return (
     <Layout>
@@ -63,10 +65,8 @@ const Year = () => {
               <option>Most recent first</option>
               <option>Oldest first</option>
             </select>
-            <select className="ml-4 mt-8 bg-transparent text-xl">
-              <option>Skiing</option>
-              <option>asdasd</option>
-            </select>
+
+            <SportFilter events={originalEvents.map(e => e.sport)} _onChange={(value) => setSport(value)} className="ml-4 mt-8 bg-transparent text-xl"/>
           </div>
 
           <div className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-2 ">

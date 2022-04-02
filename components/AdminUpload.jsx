@@ -16,7 +16,7 @@ const AdminUpload = () => {
             activeIndex === 0
               ? "font-bold text-black border-b-2 border-b-blue-500"
               : "font-normal text-gray"
-          } cursor-pointer`}
+          } text-center cursor-pointer`}
         >
           Create year folder
         </h1>
@@ -26,7 +26,7 @@ const AdminUpload = () => {
             activeIndex === 1
               ? "font-bold text-black border-b-2 border-b-blue-500"
               : "font-normal text-gray"
-          } ml-8 cursor-pointer`}
+          } text-center  ml-8 cursor-pointer`}
         >
           Add a new event
         </h1>
@@ -36,7 +36,7 @@ const AdminUpload = () => {
             activeIndex === 2
               ? "font-bold text-black border-b-2 border-b-blue-500"
               : "font-normal text-gray"
-          } ml-8 cursor-pointer`}
+          } text-center  ml-8 cursor-pointer`}
         >
           Add photos to an event
         </h1>

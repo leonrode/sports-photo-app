@@ -28,7 +28,7 @@ const AdminCreateYear = () => {
   const fileDrop = (e) => {
     e.preventDefault();
     const files = e.dataTransfer.files;
-    const validFileTypes = ["image/png", "img/jpeg"];
+    const validFileTypes = ["image/png", "image/jpeg"];
     if (files.length > 0) {
       Array.from(files).forEach((file) => {
         if (!validFileTypes.includes(file.type)) {
@@ -87,7 +87,7 @@ const AdminCreateYear = () => {
         type="file"
         className="mt-4"
         accept="image/png, image/jpeg"
-        multiple
+
         onChange={(e) => {
           filePick(e.target.files);
         }}
@@ -111,7 +111,7 @@ const AdminCreateYear = () => {
 
       <input
         ref={yearRef}
-        className="my-4 outline-none bg-transparent border-b-2 border-b-black"
+        className="my-4 pb-2 outline-none bg-transparent border-b-2 border-b-black"
         type="number"
         placeholder="Year"
       ></input>

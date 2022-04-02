@@ -16,7 +16,7 @@ const Event = () => {
   useEffect(() => {
     (async () => {
       if (router.isReady) {
-        console.log(router.query.slug);
+
         const slug = router.query.slug;
         const res = await getEvent(slug);
 

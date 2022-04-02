@@ -9,7 +9,7 @@ const handler = async (req, res) => {
     if (!year) return res.status(400).send();
 
     const query = { year: year };
-    // console.log(filter);
+
     const events = await db.collection("events").find(query).toArray();
 
     events.forEach((event) => {

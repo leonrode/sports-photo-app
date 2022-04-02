@@ -27,7 +27,6 @@ const createEvent = async (
   date,
   sport,
   files,
-  progressCallback
 ) => {
   const data = new FormData();
   Array.from(files).forEach((file) => {
@@ -47,14 +46,27 @@ const createEvent = async (
   };
   const res = await axios.post("/api/event/create", data, config);
 
-  const source = new EventSource("/api/event/create");
-  source.onmessage = (e) => {
-    const data = e.data;
-    progressCallback(data);
-    console.log(data);
-  };
   return res.data;
 };
+
+const addPhotosToEvent = async (files, slug) => {
+  const data = new FormData();
+  Array.from(files).forEach((file) => {
+    data.append("file", file);
+  });
+
+  data.set("slug", slug);
+
+
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+
+  const res = await axios.put("/api/event/add", data, config);
+  return res.data;
+}
 
 const createYear = async (year, file) => {
   const data = new FormData();
@@ -81,4 +93,4 @@ const getEvent = async (slug) => {
   return res.data;
 };
 
-export { adminLogin, fetchYears, createEvent, createYear, getEvents, getEvent };
+export { adminLogin, fetchYears, createEvent, addPhotosToEvent, createYear, getEvents, getEvent };

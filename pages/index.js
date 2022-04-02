@@ -14,7 +14,7 @@ export default function Home() {
       const res = await fetchYears();
       let _years = res;
       _years.sort((a, b) => ~~a.year < ~~b.year);
-      console.log(_years);
+
       setYears(_years);
     })();
   }, []);

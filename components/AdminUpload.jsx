@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import AdminCreateYear from "./AdminCreateYear";
 import AdminCreateEvent from "./AdminCreateEvent";
+import AdminAddPhotos from "./AdminAddPhotos";
 const AdminUpload = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
@@ -40,7 +41,7 @@ const AdminUpload = () => {
           Add photos to an event
         </h1>
       </div>
-      {activeIndex === 0 ? <AdminCreateYear /> : <AdminCreateEvent />}
+      {activeIndex === 0 ? <AdminCreateYear /> : (activeIndex === 1 ? <AdminCreateEvent /> : <AdminAddPhotos />)}
     </>
   );
 };

@@ -5,19 +5,24 @@ import { useRouter } from "next/router";
 
 import SportDropdown from "./SportDropdown";
 
-import { fetchYears, createEvent } from "../_api/api";
-const AdminCreateEvent = () => {
+import { fetchYears, getEvents, addPhotosToEvent } from "../_api/api";
+
+import { sortEventsBySearch } from "../lib/utils";
+
+const AdminAddPhotos = () => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [files, setFiles] = useState([]);
   const [invalidFiles, setInvalidFiles] = useState([]);
   const [years, setYears] = useState([]);
-  const [sport, setSport] = useState("Skiing");
-  const router = useRouter();
+  const [selectedYear, setSelectedYear] = useState(null);
 
-  const yearRef = useRef(null);
-  const titleRef = useRef(null);
-  const locationRef = useRef(null);
-  const dateRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const [search, setSearch] = useState("");
+
+  const [events, setEvents] = useState([]);
+
+  const router = useRouter();
 
   const fileRef = useRef(null);
   const dragOver = (e) => {
@@ -67,9 +72,27 @@ const AdminCreateEvent = () => {
   useEffect(() => {
     (async () => {
       const years = await fetchYears();
+      if (years.length > 0) {setSelectedYear(years[0].year);}
       setYears(years);
     })();
   }, []);
+
+  useEffect(() => {
+      (async () => {
+          if (selectedYear) {
+              const res = await getEvents(selectedYear);
+              setSelectedIndex(null)
+              setEvents(res.events);
+          }
+      })()
+
+  }, [selectedYear])
+
+  useEffect(() => {
+
+    setEvents(sortEventsBySearch(events, search))
+
+  }, [search])
   return (
     <div className="w-full p-2 md:p-0 flex flex-col items-center">
       <div
@@ -142,73 +165,39 @@ const AdminCreateEvent = () => {
       <div className="flex mt-8 flex-col items-start">
         <div className="flex items-center">
           <span>Add to year: </span>
-          <select ref={yearRef} className="ml-4 p-2">
+          <select onChange={(e) => setSelectedYear(e.target.value)} className="ml-4 p-2">
             {years.map((year, index) => (
               <option key={index}>{year.year}</option>
             ))}
           </select>
         </div>
-        <div className="flex items-center">
-          <input
-            ref={titleRef}
-            className=" pb-2 mt-4 outline-none bg-transparent border-b-2 border-b-black"
-            placeholder="Event Title"
-            type="text"
-          />
-        </div>
-        <div className="mt-4 flex items-center relative">
-          <FiMapPin size={20} className="text-black mb-2 absolute  -right-6" />
-          <input
-            ref={locationRef}
-            className="pb-2 outline-none bg-transparent border-b-2 border-b-black"
-            placeholder="Location"
-            type="text"
-          />
-        </div>
-        <div className="mt-4 flex items-center relative">
-          <FiCalendar
-            size={20}
-            className="text-black mb-2 absolute  -right-6"
-          />
-          <input
-            ref={dateRef}
-            // placeholder="mm / dd / yyyy"
-            className="pb-2 w-full outline-none bg-light-bg border-b-2 border-b-black"
-            type="date"
-          />
-        </div>
-        <div className="mt-4 flex justify-start items-center relative">
-          <FiDribbble
-            size={20}
-            className="text-black mb-2 absolute  -right-6"
-          />
-          <SportDropdown
-            className="p-2 w-full"
-            _onChange={(value) => setSport(value)}
-          />
-        </div>
+        <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search for an event..." className="mt-4 w-full outline-none border-b-2 border-b-black bg-transparent pb-2" ></input>
+        <div className="my-4"></div>
+        {events.map((event, index) => <div onClick={() => setSelectedIndex(index)} key={event.slug} className={`border-2 ${selectedIndex === index ? "border-blue-500" : "border-transparent"} transition cursor-pointer hover:border-blue-500 bg-slate-100 w-full mb-4 rounded-lg h-16 flex`}>
+
+            <img className="  rounded-lg rounded-bl-lg h-full" src={event.images[0] ? event.images[0].link : "/placeholder.png"}></img>
+            <div className="px-4 w-full flex items-center">
+                <div>
+                <h1 className="font-bold">{event.title}</h1>
+                <p>{event.location}</p>
+                </div>
+            </div>
+        </div>)}
       </div>
       <div
         onClick={async () => {
-          const res = await createEvent(
-            titleRef.current.value,
-            yearRef.current.value,
-            locationRef.current.value,
-            new Date(dateRef.current.value),
-            sport,
-            files,
 
-          );
-
-          router.push(`/event/${res.entry.slug}`);
+            if (selectedIndex !== null) {
+              const res = await addPhotosToEvent(files, events[selectedIndex].slug);
+              router.push(`/event/${events[selectedIndex].slug}`)
+            }
         }}
         className="mt-8 px-4 py-2 w-fit md:w-auto border-2 border-black rounded-md cursor-pointer"
       >
-        Create event
+        Add photos to <span className="font-bold">{events[selectedIndex]?.title}</span>
       </div>
       <div className="my-24"></div>
-    </div>
-  );
-};
+    </div>);
+}
 
-export default AdminCreateEvent;
+export default AdminAddPhotos;

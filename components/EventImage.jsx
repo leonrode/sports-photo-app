@@ -8,11 +8,12 @@ import {
 
 
 const EventImage = ({ selected, onSelect, onDeselect, link }) => {
-
+  // console.log(Buffer.from(data).toString("base64"));
   return (
     <div className="group relative h-fit">
-      <img className="rounded-xl " src={link}></img>
-      <div className={`group-hover:visible group-hover:opacity-100 ${selected ? "visible opacity-100" : "opacity-0 invisible"} transition-all px-4 flex items-end pb-4 lg:pb-2 justify-between bottom-0 bg-gradient-to-t from-black to-[rgba(0, 0, 0, 0.4)] rounded-bl-xl rounded-br-xl absolute w-full h-1/5`}>
+      <img crossOrigin="anonymous" referrerPolicy="noreferrer" className="rounded-xl " src={link}></img>
+      {/* <img referrerPolicy="noreferrer" className="rounded-xl " src={`data:image/png;base64,${Buffer.from(data).toString("base64")}`}></img> */}
+      <div className={`py-2 group-hover:visible group-hover:opacity-100 ${selected ? "visible opacity-100" : "opacity-100 lg:opacity-0 visible lg:invisible"} transition-all px-4 flex items-end  justify-between bottom-0 bg-gradient-to-t from-black to-[rgba(0, 0, 0, 0.4)] rounded-bl-xl rounded-br-xl absolute w-full `}>
         <div className="flex items-center w-1/5 md:w-1/2 lg:w-1/4 pb-2  justify-between">
           {!selected ? (
             <FiSquare

@@ -3,6 +3,8 @@ import { randomId } from "../../../lib/utils";
 import formidable from "formidable";
 import { ObjectId } from "mongodb";
 
+// !! CLIENT SIDE S3 UPLOAD IS NECESSSARY!!!
+
 import { s3upload } from "../../../lib/aws";
 
 const handler = async (req, res) => {

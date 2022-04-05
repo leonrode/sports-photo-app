@@ -7,7 +7,7 @@ const MobileNavScreen = ({ show, toClose }) => {
     <div
       className={`${
         show ? "opacity-100 visible" : "opacity-0 invisible"
-      } fixed top-0 left-0 transition-fade duration-250 md:hidden w-screen h-screen bg-light-bg flex flex-col justify-center items-center`}
+      } z-50 fixed top-0 left-0 transition-fade duration-250 md:hidden w-screen h-screen bg-light-bg flex flex-col justify-center items-center`}
     >
       <Logo />
       <span className="mt-16">

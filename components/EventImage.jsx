@@ -6,8 +6,12 @@ import {
   FiMaximize2,
 } from "react-icons/fi";
 
+import FullscreenImage from "./FullscreenImage";
 
-const EventImage = ({ selected, onSelect, onDeselect, link }) => {
+import {useState} from "react";
+
+const EventImage = ({ selected, onSelect, onDeselect, link, event }) => {
+  const [fs, setFs] = useState(false);
   // console.log(Buffer.from(data).toString("base64"));
   return (
     <div className="group relative h-fit">
@@ -44,11 +48,13 @@ const EventImage = ({ selected, onSelect, onDeselect, link }) => {
         </div>
         <div className="flex items-center pb-2">
           <FiMaximize2
+            onClick={() => setFs(true)}
             className="aspect-square cursor-pointer text-white"
             size={20}
           />
         </div>
       </div>
+      {fs && <FullscreenImage event={event} link={link} toClose={() => setFs(false)}/>}
     </div>
   );
 };

@@ -52,7 +52,9 @@ const handler = async (req, res) => {
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: {
+      sizeLimit: "1TB"
+    },
   },
 };
 

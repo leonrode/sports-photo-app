@@ -2,14 +2,14 @@ import Layout from "../../components/Layout";
 
 import Link from "next/link";
 
-import { FiChevronLeft, FiCheckSquare, FiDownload,FiX } from "react-icons/fi";
+import { FiChevronLeft, FiCheckSquare, FiDownload, FiX } from "react-icons/fi";
 
 import { useState, useEffect, useRef } from "react";
 
 import { getEvent } from "../../_api/api";
 
 import JSZip from "jszip";
-import { saveAs } from "file-saver"
+import { saveAs } from "file-saver";
 import { useRouter } from "next/router";
 import EventImage from "../../components/EventImage";
 
@@ -20,7 +20,6 @@ const Event = () => {
   const [selectedIndices, setSelectedIndices] = useState([]);
   const imgContainerRef = useRef(null);
   const generateZip = async () => {
-
     if (selectedIndices.length > 0 && imgContainerRef.current) {
       const zip = new JSZip();
       const children = imgContainerRef.current.children;
@@ -37,18 +36,14 @@ const Event = () => {
 
         ctx.drawImage(img, 0, 0);
 
-        const blob = await new Promise(resolve => canvas.toBlob(resolve));
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve));
         zip.file(event.images[i].key, blob);
-
       }
 
-      const zipBlob = await zip.generateAsync({type: "blob"})
-      saveAs(zipBlob, event.title)
-
-
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      saveAs(zipBlob, event.title);
     }
-  }
-
+  };
 
   useEffect(() => {
     (async () => {
@@ -79,10 +74,14 @@ const Event = () => {
             <span className="font-bold">{event.title}</span>
           </h1>
 
-          {selectedIndices.length === 0 && <span onClick={() => setSelectedIndices(event.images.map((e, i) => i))} className="mt-4 cursor-pointer text-blue-500 w-fit flex items-center  text-xl">
-                <FiCheckSquare className="mr-2" size={15} /> Select all
-
-              </span>}
+          {selectedIndices.length === 0 && (
+            <span
+              onClick={() => setSelectedIndices(event.images.map((e, i) => i))}
+              className="mt-4 cursor-pointer text-blue-500 w-fit flex items-center  text-xl"
+            >
+              <FiCheckSquare className="mr-2" size={15} /> Select all
+            </span>
+          )}
 
           {selectedIndices.length > 0 && (
             <div className="flex items-center  mt-4">
@@ -91,23 +90,32 @@ const Event = () => {
                 {selectedIndices.length} photo
                 {selectedIndices.length !== 1 ? "s" : ""}
               </p>
-              <div onClick={async () => await generateZip()} className="cursor-pointer text-blue-500 ml-4 flex items-center">
+              <div
+                onClick={async () => await generateZip()}
+                className="cursor-pointer text-blue-500 ml-4 flex items-center"
+              >
                 <FiDownload className="mr-2" size={15} />
                 Download all
               </div>
-              <div onClick={() => setSelectedIndices([])} className="cursor-pointer text-red-500 ml-4 flex items-center">
+              <div
+                onClick={() => setSelectedIndices([])}
+                className="cursor-pointer text-red-500 ml-4 flex items-center"
+              >
                 <FiX className="mr-2" size={15} />
-              Deselect
-                </div>
+                Deselect
+              </div>
             </div>
           )}
 
-        <div ref={imgContainerRef} className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-3 ">
+          <div
+            ref={imgContainerRef}
+            className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-3 "
+          >
             {event.images.map((image, index) => (
               <EventImage
+                event={event}
                 selected={selectedIndices.includes(index)}
                 onSelect={() => {
-
                   setSelectedIndices((prev) => [...prev, index]);
                 }}
                 onDeselect={() =>

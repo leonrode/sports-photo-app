@@ -37,6 +37,7 @@ const createEvent = async (title, year, location, date, sport, files) => {
       "content-type": "multipart/form-data",
     },
   };
+
   const res = await axios.post("/api/event/create", data, config);
 
   return res.data;

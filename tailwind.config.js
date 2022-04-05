@@ -12,6 +12,7 @@ module.exports = {
         "light-bg": "#f6f6f6",
         gray: "#606060",
         black: "#423E37",
+        opaque: "rgba(0, 0, 0, 0.95)"
       },
     },
   },

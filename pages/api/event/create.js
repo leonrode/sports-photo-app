@@ -10,13 +10,16 @@ const handler = async (req, res) => {
     const form = new formidable.IncomingForm({
       keepExtensions: true,
       multiples: true,
+      maxFileSize: 1024 * 1024 * 1024
     });
+
 
     return form.parse(req, async (err, fields, files) => {
       if (err != null) {
         console.error(err);
         return res.status(500).send();
       }
+
 
       const id = new ObjectId();
       const entry = {
@@ -30,7 +33,6 @@ const handler = async (req, res) => {
 
       if (files.file) {
         const _files = Array.isArray(files.file) ? files.file : [files.file];
-
         entry.images = await s3upload(_files);
       }
 
@@ -52,7 +54,7 @@ const handler = async (req, res) => {
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false
   },
 };
 

@@ -1,10 +1,11 @@
 import { FiChevronRight } from "react-icons/fi";
 import Link from "next/link";
 const YearFolder = ({ year }) => {
+  console.log(year)
   return (
     <Link href={`/year/${year.year}`}>
       <div className="group relative h-fit w-fit cursor-pointer">
-        <img className="rounded-xl" src={year.cover.link}></img>
+        <img className="rounded-xl" src={year.cover.link ? year.cover.link : "/placeholder.png"}></img>
         <div className="py-2 flex justify-between items-center px-4 absolute bottom-0 rounded-br-lg rounded-bl-lg w-full bg-white">
           <div>
             <h1 className="text-xl font-bold">{year.year}</h1>

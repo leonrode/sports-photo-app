@@ -39,9 +39,6 @@ const handler = async (req, res) => {
       const db = client.db("data");
       try {
         const insertResult = db.collection("events").insertOne(entry);
-        const updateResult = db
-          .collection("years")
-          .updateOne({ year: entry.year }, { $push: { events: id } });
       } catch (e) {
         console.error(e);
         return res.status(500).send();

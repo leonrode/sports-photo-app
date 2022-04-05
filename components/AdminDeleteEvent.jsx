@@ -77,7 +77,7 @@ const AdminDeleteEvent = () => {
       <div
         onClick={async () => {
 
-            if (selectedIndex !== null) {
+            if (selectedIndex !== -1) {
               const res = await deleteEvent(events[selectedIndex].slug);
               if (res) {
                 await refreshEvents();

@@ -6,7 +6,7 @@ import AdminCreateYear from "./AdminCreateYear";
 import AdminCreateEvent from "./AdminCreateEvent";
 import AdminAddPhotos from "./AdminAddPhotos";
 import AdminDeleteEvent from "./AdminDeleteEvent";
-
+import AdminDeleteImage from "./AdminDeleteImage"
 const renderComponent = (index) => {
   switch (index) {
     case 0:
@@ -17,6 +17,8 @@ const renderComponent = (index) => {
       return <AdminAddPhotos />;
     case 3:
       return <AdminDeleteEvent />;
+    case 4:
+      return <AdminDeleteImage />
   }
 };
 
@@ -24,7 +26,7 @@ const AdminUpload = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <>
-      <div className="flex justify-center items-center w-full md:w-1/2 ">
+      <div className="flex flex-col lg:flex-row justify-between lg:justify-center items-center w-full md:w-1/2 ">
         <h1
           onClick={() => setActiveIndex(0)}
           className={`${
@@ -41,7 +43,7 @@ const AdminUpload = () => {
             activeIndex === 1
               ? "font-bold text-black border-b-2 border-b-blue-500"
               : "font-normal text-gray"
-          } text-center  ml-8 cursor-pointer`}
+          } text-center mt-4 lg:mt-0 lg:ml-8 cursor-pointer`}
         >
           Add a new event
         </h1>
@@ -51,7 +53,7 @@ const AdminUpload = () => {
             activeIndex === 2
               ? "font-bold text-black border-b-2 border-b-blue-500"
               : "font-normal text-gray"
-          } text-center  ml-8 cursor-pointer`}
+          } text-center mt-4 lg:mt-0 lg:ml-8 cursor-pointer`}
         >
           Add photos to an event
         </h1>
@@ -61,9 +63,19 @@ const AdminUpload = () => {
             activeIndex === 3
               ? "font-bold text-black border-b-2 border-b-blue-500"
               : "font-normal text-gray"
-          } text-center  ml-8 cursor-pointer`}
+          } text-center mt-4 lg:mt-0 lg:ml-8 cursor-pointer`}
         >
           Delete an event
+        </h1>
+        <h1
+          onClick={() => setActiveIndex(4)}
+          className={`${
+            activeIndex === 4
+              ? "font-bold text-black border-b-2 border-b-blue-500"
+              : "font-normal text-gray"
+          } text-center mt-4 lg:mt-0 lg:ml-8 cursor-pointer`}
+        >
+          Delete an image from event
         </h1>
       </div>
 

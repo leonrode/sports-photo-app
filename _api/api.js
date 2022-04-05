@@ -20,14 +20,7 @@ const fetchYears = async () => {
   }
 };
 
-const createEvent = async (
-  title,
-  year,
-  location,
-  date,
-  sport,
-  files,
-) => {
+const createEvent = async (title, year, location, date, sport, files) => {
   const data = new FormData();
   Array.from(files).forEach((file) => {
     data.append("file", file);
@@ -57,7 +50,6 @@ const addPhotosToEvent = async (files, slug) => {
 
   data.set("slug", slug);
 
-
   const config = {
     headers: {
       "content-type": "multipart/form-data",
@@ -66,7 +58,7 @@ const addPhotosToEvent = async (files, slug) => {
 
   const res = await axios.put("/api/event/add", data, config);
   return res.data;
-}
+};
 
 const createYear = async (year, file) => {
   const data = new FormData();
@@ -94,8 +86,23 @@ const getEvent = async (slug) => {
 };
 
 const deleteEvent = async (slug) => {
-  const res = await axios.post("/api/event/delete", {slug});
+  const res = await axios.post("/api/event/delete", { slug });
   return res.status === 200;
-}
+};
 
-export { adminLogin, fetchYears, createEvent, addPhotosToEvent, createYear, getEvents, getEvent,deleteEvent };
+const deleteImage = async (slug, key) => {
+  console.log(slug, key)
+  const res = await axios.post("/api/event/deleteImage", { slug, key });
+  return res.status === 200;
+};
+export {
+  adminLogin,
+  fetchYears,
+  createEvent,
+  addPhotosToEvent,
+  createYear,
+  getEvents,
+  getEvent,
+  deleteEvent,
+  deleteImage,
+};

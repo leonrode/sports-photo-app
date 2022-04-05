@@ -117,7 +117,7 @@ const AdminCreateYear = () => {
       ></input>
       <div
         onClick={async () => {
-          if (file && yearRef.current.value !== "") {
+          if (yearRef.current.value !== "") {
             const res = await createYear(yearRef.current.value, file);
             router.push(`/year/${res.entry.year}`);
           }

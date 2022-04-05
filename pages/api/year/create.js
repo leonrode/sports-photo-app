@@ -21,15 +21,17 @@ const handler = async (req, res) => {
         ...fields,
         cover: {},
         _id: id,
-        events: [],
       };
 
-      try {
-        const images = await s3upload(files.file);
-        entry.cover = images[0];
-      } catch (e) {
-        console.error(e);
-        return res.status(500).send();
+      if (files.file) {
+
+        try {
+          const images = await s3upload(files.file);
+          entry.cover = images[0];
+        } catch (e) {
+          console.error(e);
+          return res.status(500).send();
+        }
       }
 
       // create event in database

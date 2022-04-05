@@ -114,6 +114,7 @@ const AdminDeleteImage = () => {
           <div className="px-24 grid gap-y-8 gap-x-16 md:grid-cols-3">
             {events[selectedIndex].images.map((img, index) => (
               <img
+                key={img.key}
                 onClick={() => setSelectedImageIndex(index)}
                 className={`${
                   index === selectedImageIndex

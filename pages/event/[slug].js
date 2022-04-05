@@ -9,10 +9,10 @@ import { useState, useEffect, useRef } from "react";
 import { getEvent } from "../../_api/api";
 
 import JSZip from "jszip";
-import {saveAs} from "file-saver"
+import { saveAs } from "file-saver"
 import { useRouter } from "next/router";
 import EventImage from "../../components/EventImage";
-import axios from "axios";
+
 const Event = () => {
   const [event, setEvent] = useState(null);
   const router = useRouter();
@@ -21,49 +21,32 @@ const Event = () => {
   const imgContainerRef = useRef(null);
   const generateZip = async () => {
 
-
-
-
     if (selectedIndices.length > 0 && imgContainerRef.current) {
       const zip = new JSZip();
       const children = imgContainerRef.current.children;
 
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
-      // imgContainerRef.current
+
       for (let i = 0; i < children.length; i++) {
-        const imageKey = event.images[i].key;
         const imgCont = children[i];
 
         const img = imgCont.childNodes[0];
-        // imgContainerRef.current.appendChild(canvas)
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
 
         ctx.drawImage(img, 0, 0);
 
-        const blob = canvas.toBlob((blob) => {
-
-          zip.file(imageKey, blob.text(), {binary: true})
-          console.log(blob);
-        });
-
-        // zip.file(imageKey, buffer, {binary : true});
-
-
+        const blob = await new Promise(resolve => canvas.toBlob(resolve));
+        zip.file(event.images[i].key, blob);
 
       }
-      console.log(zip)
 
       const zipBlob = await zip.generateAsync({type: "blob"})
-      console.log(zipBlob)
       saveAs(zipBlob, event.title)
-      console.log(zip);
-      //console.log(imgContainerRef.current)
+
+
     }
-
-
-
   }
 
 
@@ -103,7 +86,7 @@ const Event = () => {
                 {selectedIndices.length} photo
                 {selectedIndices.length !== 1 ? "s" : ""}
               </p>
-              <div onClick={generateZip} className="cursor-pointer text-blue-500 ml-4 flex items-center">
+              <div onClick={async () => await generateZip()} className="cursor-pointer text-blue-500 ml-4 flex items-center">
                 <FiDownload className="mr-2" size={15} />
                 Download all
               </div>

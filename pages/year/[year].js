@@ -69,7 +69,7 @@ const Year = () => {
             <SportFilter events={originalEvents.map(e => e.sport)} _onChange={(value) => setSport(value)} className="ml-4 mt-8 bg-transparent text-xl"/>
           </div>
 
-          <div className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-2 ">
+          <div className="mt-4 grid gap-y-8 gap-x-16 md:grid-cols-2 ">
             {events.map((event) => (
               <Event key={event.slug} event={event} />
             ))}

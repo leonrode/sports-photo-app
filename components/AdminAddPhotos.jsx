@@ -173,7 +173,7 @@ const AdminAddPhotos = () => {
         </div>
         <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search for an event..." className="mt-4 w-full outline-none border-b-2 border-b-black bg-transparent pb-2" ></input>
         <div className="my-4"></div>
-        {events.map((event, index) => <div onClick={() => setSelectedIndex(index)} key={event.slug} className={`border-2 ${selectedIndex === index ? "border-blue-500" : "border-transparent"} transition cursor-pointer hover:border-blue-500 bg-slate-100 w-full mb-4 rounded-lg h-20 flex`}>
+        {events.map((event, index) => <div onClick={() => setSelectedIndex(selectedIndex === index ? -1 : index)} key={event.slug} className={`border-2 ${selectedIndex === index ? "border-blue-500" : "border-transparent"} transition cursor-pointer hover:border-blue-500 bg-slate-100 w-full mb-4 rounded-lg h-20 flex`}>
 
             <img className="  rounded-lg rounded-bl-lg h-full" src={event.images[0] ? event.images[0].link : "/placeholder.png"}></img>
             <div className="px-4 w-full flex items-center">

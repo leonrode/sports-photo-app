@@ -5,6 +5,21 @@ import { useState } from "react";
 import AdminCreateYear from "./AdminCreateYear";
 import AdminCreateEvent from "./AdminCreateEvent";
 import AdminAddPhotos from "./AdminAddPhotos";
+import AdminDeleteEvent from "./AdminDeleteEvent";
+
+const renderComponent = (index) => {
+  switch (index) {
+    case 0:
+      return <AdminCreateYear />;
+    case 1:
+      return <AdminCreateEvent />;
+    case 2:
+      return <AdminAddPhotos />;
+    case 3:
+      return <AdminDeleteEvent />;
+  }
+};
+
 const AdminUpload = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
@@ -40,8 +55,19 @@ const AdminUpload = () => {
         >
           Add photos to an event
         </h1>
+        <h1
+          onClick={() => setActiveIndex(3)}
+          className={`${
+            activeIndex === 3
+              ? "font-bold text-black border-b-2 border-b-blue-500"
+              : "font-normal text-gray"
+          } text-center  ml-8 cursor-pointer`}
+        >
+          Delete an event
+        </h1>
       </div>
-      {activeIndex === 0 ? <AdminCreateYear /> : (activeIndex === 1 ? <AdminCreateEvent /> : <AdminAddPhotos />)}
+
+      {renderComponent(activeIndex)}
     </>
   );
 };

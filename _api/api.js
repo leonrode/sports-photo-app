@@ -93,4 +93,9 @@ const getEvent = async (slug) => {
   return res.data;
 };
 
-export { adminLogin, fetchYears, createEvent, addPhotosToEvent, createYear, getEvents, getEvent };
+const deleteEvent = async (slug) => {
+  const res = await axios.post("/api/event/delete", {slug});
+  return res.status === 200;
+}
+
+export { adminLogin, fetchYears, createEvent, addPhotosToEvent, createYear, getEvents, getEvent,deleteEvent };

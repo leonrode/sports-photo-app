@@ -79,6 +79,11 @@ const Event = () => {
             <span className="font-bold">{event.title}</span>
           </h1>
 
+          {selectedIndices.length === 0 && <span onClick={() => setSelectedIndices(event.images.map((e, i) => i))} className="mt-4 cursor-pointer text-blue-500 w-fit flex items-center  text-xl">
+                <FiCheckSquare className="mr-2" size={15} /> Select all
+
+              </span>}
+
           {selectedIndices.length > 0 && (
             <div className="flex items-center  mt-4">
               <p className="flex items-center  text-xl">

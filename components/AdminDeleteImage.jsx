@@ -50,7 +50,7 @@ const AdminDeleteImage = () => {
     <div className="w-full p-2 md:p-0 flex flex-col items-center">
       <div className="flex mt-8 flex-col items-start">
         <div className="flex items-center">
-          <span>Add to year: </span>
+          <span>Choose year: </span>
           <select
             onChange={(e) => setSelectedYear(e.target.value)}
             className="ml-4 p-2"
@@ -97,8 +97,14 @@ const AdminDeleteImage = () => {
           <div
             onClick={async () => {
               if (selectedIndex !== -1 && selectedImageIndex !== -1) {
-                console.log(events[selectedIndex].slug, events[selectedIndex].images[selectedImageIndex].key)
-                const res = await deleteImage(events[selectedIndex].slug, events[selectedIndex].images[selectedImageIndex].key);
+                console.log(
+                  events[selectedIndex].slug,
+                  events[selectedIndex].images[selectedImageIndex].key
+                );
+                const res = await deleteImage(
+                  events[selectedIndex].slug,
+                  events[selectedIndex].images[selectedImageIndex].key
+                );
                 if (res) {
                   setSelectedImageIndex(-1);
                   await refreshEvents();
@@ -108,7 +114,11 @@ const AdminDeleteImage = () => {
             className="mt-8 px-4 py-2 w-fit md:w-auto border-2 border-black rounded-md cursor-pointer"
           >
             Delete{" "}
-            {selectedImageIndex !== -1 && <span className="font-bold">{events[selectedIndex]?.images[selectedImageIndex].key}</span>}
+            {selectedImageIndex !== -1 && (
+              <span className="font-bold">
+                {events[selectedIndex]?.images[selectedImageIndex].key}
+              </span>
+            )}
           </div>
           <span className="my-12 border-2 border-black w-24"></span>
           <div className="px-24 grid gap-y-8 gap-x-16 md:grid-cols-3">

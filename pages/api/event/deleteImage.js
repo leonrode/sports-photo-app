@@ -11,16 +11,24 @@ const handler = async (req, res) => {
     const db = client.db("data");
 
     const filter = { slug };
-    const update = {$pull: {images: {key: key}}}
+    const update = { $pull: { images: { key: key } } };
 
     try {
-      const updateResult = await db.collection("events").updateOne(filter, update);
-      await s3deleteObject(key);
+      const updateResult = await db
+        .collection("events")
+        .updateOne(filter, update);
+
+      // determine if image is being used as cover of year somewhere
+      const years = await db.collection("years").find().toArray();
+
+      const filterResult = years.filter((year) => year.cover.key === key);
+      if (filterResult.length === 0) {
+        await s3deleteObject(key);
+      }
       return res.status(200).send();
     } catch (e) {
       return res.status(500).send;
     }
-
   }
   return res.status(404).send();
 };

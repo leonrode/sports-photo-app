@@ -1,5 +1,6 @@
 import {
   FiSquare,
+  FiCheck,
   FiCheckSquare,
   FiShare2,
   FiDownload,
@@ -8,24 +9,35 @@ import {
 
 import FullscreenImage from "./FullscreenImage";
 
-import {useState} from "react";
+import { useState } from "react";
 
-const EventImage = ({ selected, onSelect, onDeselect, link, event }) => {
+const EventImage = ({ selected, onSelect, onDeselect, link, smallerLink, event }) => {
   const [fs, setFs] = useState(false);
-  // console.log(Buffer.from(data).toString("base64"));
+  const [copied, setCopied] = useState(false);
   return (
     <div className="group relative h-fit">
-      <img crossOrigin="anonymous" referrerPolicy="noreferrer" className="rounded-xl " src={link}></img>
-      {/* <img referrerPolicy="noreferrer" className="rounded-xl " src={`data:image/png;base64,${Buffer.from(data).toString("base64")}`}></img> */}
-      <div className={`py-2 group-hover:visible group-hover:opacity-100 ${selected ? "visible opacity-100" : "opacity-100 lg:opacity-0 visible lg:invisible"} transition-all px-4 flex items-end  justify-between bottom-0 bg-gradient-to-t from-black to-[rgba(0, 0, 0, 0.4)] rounded-bl-xl rounded-br-xl absolute w-full `}>
-        <div className="flex items-center w-1/5 md:w-1/2 lg:w-1/4 pb-2  justify-between">
+      <img
+        crossOrigin="anonymous"
+        referrerPolicy="noreferrer"
+        className="rounded-xl "
+        src={smallerLink}
+      ></img>
+      <div
+        className={`py-2 group-hover:visible group-hover:opacity-100 ${
+          selected
+            ? "visible opacity-100"
+            : "opacity-100 lg:opacity-0 visible lg:invisible"
+        } transition-all px-4 flex items-end  justify-between bottom-0 bg-gradient-to-t from-black to-[rgba(0, 0, 0, 0.4)] rounded-bl-xl rounded-br-xl absolute w-full `}
+      >
+        <div className="flex items-center w-1/5 md:w-1/2 lg:w-1/4 pb-2 justify-between">
+          <div>
+
           {!selected ? (
             <FiSquare
               onClick={() => {
                 onSelect();
-
               }}
-              className="aspect-square w-full cursor-pointer text-white"
+              className=" cursor-pointer text-white"
               size={20}
             />
           ) : (
@@ -33,18 +45,33 @@ const EventImage = ({ selected, onSelect, onDeselect, link, event }) => {
               onClick={() => {
                 onDeselect();
               }}
-              className="aspect-square w-full cursor-pointer text-white"
+              className="cursor-pointer text-white"
               size={20}
             />
           )}
-          <FiShare2
-            className="aspect-square w-full cursor-pointer text-white lg:ml-2"
-            size={20}
-          />
-          <FiDownload
-            className="aspect-square w-full cursor-pointer text-white lg:ml-2"
-            size={20}
-          />
+          </div>
+          <div>
+
+          {copied ? (
+            <FiCheck size={20} className="text-white" />
+          ) : (
+            <FiShare2
+              onClick={async () => {
+                await navigator.clipboard.writeText(link);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000 * 5); // 5 sec
+              }}
+              className="text-white cursor-pointer"
+              size={20}
+            />
+          )}
+          </div>
+          <a
+          href={link}
+            download={link}
+          >
+            <FiDownload className="cursor-pointer text-white " size={20} />
+          </a>
         </div>
         <div className="flex items-center pb-2">
           <FiMaximize2
@@ -54,7 +81,14 @@ const EventImage = ({ selected, onSelect, onDeselect, link, event }) => {
           />
         </div>
       </div>
-      {fs && <FullscreenImage event={event} link={link} toClose={() => setFs(false)}/>}
+      {fs && (
+        <FullscreenImage
+          event={event}
+          link={link}
+          smallerLink={smallerLink}
+          toClose={() => setFs(false)}
+        />
+      )}
     </div>
   );
 };

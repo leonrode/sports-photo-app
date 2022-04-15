@@ -92,7 +92,7 @@ const deleteEvent = async (slug) => {
 };
 
 const deleteImage = async (slug, key) => {
-  console.log(slug, key)
+
   const res = await axios.post("/api/event/deleteImage", { slug, key });
   return res.status === 200;
 };

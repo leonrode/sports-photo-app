@@ -97,10 +97,7 @@ const AdminDeleteImage = () => {
           <div
             onClick={async () => {
               if (selectedIndex !== -1 && selectedImageIndex !== -1) {
-                console.log(
-                  events[selectedIndex].slug,
-                  events[selectedIndex].images[selectedImageIndex].key
-                );
+
                 const res = await deleteImage(
                   events[selectedIndex].slug,
                   events[selectedIndex].images[selectedImageIndex].key

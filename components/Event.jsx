@@ -19,7 +19,7 @@ const Event = ({ event }) => {
       <div className="group relative h-fit w-fit cursor-pointer">
         <img
           className="rounded-xl "
-          src={event.images[0] ? event.images[0].link : "/placeholder.png"}
+          src={event.images[0] ? event.images[0].smaller : "/placeholder.png"}
         ></img>
         <div className="py-2 flex justify-between items-center px-4 absolute bottom-0 rounded-br-lg rounded-bl-lg w-full bg-white">
           <div>

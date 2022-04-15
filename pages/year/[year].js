@@ -34,7 +34,7 @@ const Year = () => {
   return (
     <Layout>
       {events && (
-        <div className="md:px-16 md:py-4 lg:px-48 lg:py-16">
+        <div className="px-8 md:px-16 md:py-4 lg:px-48 lg:py-16">
           <Link href="/">
             <div className="cursor-pointer flex items-center">
               <FiChevronLeft size={20} className="text-gray" />

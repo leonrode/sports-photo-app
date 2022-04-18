@@ -26,14 +26,16 @@ const Event = () => {
     setZipLoading(true);
     if (selectedIndices.length > 0) {
       const zip = new JSZip();
-      for (const image of event.images) {
+      for (const index of selectedIndices) {
+        const image = event.images[index];
         const blob = await axios.get(image.smaller, { responseType: "blob" });
 
         zip.file(image.key, blob.data);
       }
       const zipBlob = await zip.generateAsync({ type: "blob" });
       setZipLoading(false);
-      saveAs(zipBlob, event.title);
+
+      saveAs(zipBlob, event.title + ".zip");
     }
   };
 

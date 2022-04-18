@@ -1,13 +1,4 @@
-import {
-  FiSquare,
-  FiCheckSquare,
-  FiShare2,
-  FiDownload,
-  FiMaximize2,
-  FiMapPin,
-  FiChevronRight,
-  FiCalendar,
-} from "react-icons/fi";
+import { FiMapPin, FiChevronRight, FiCalendar } from "react-icons/fi";
 
 import { parseDate } from "../lib/utils";
 

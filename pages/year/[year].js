@@ -78,6 +78,7 @@ const Year = () => {
               <Event key={event.slug} event={event} />
             ))}
           </div>
+          <div className="my-8"></div>
         </div>
       )}
     </Layout>

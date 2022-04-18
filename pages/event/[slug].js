@@ -13,7 +13,7 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { useRouter } from "next/router";
 import EventImage from "../../components/EventImage";
-import Spinner from "../../components/Spinner"
+import Spinner from "../../components/Spinner";
 import axios from "axios";
 
 const Event = () => {
@@ -24,14 +24,14 @@ const Event = () => {
 
   const generateZip = async () => {
     setZipLoading(true);
-    if (selectedIndices.length > 0 ) {
+    if (selectedIndices.length > 0) {
       const zip = new JSZip();
       for (const image of event.images) {
-        const blob = await axios.get(image.smaller, {responseType: "blob"});
+        const blob = await axios.get(image.smaller, { responseType: "blob" });
 
-        zip.file(image.key, blob.data)
+        zip.file(image.key, blob.data);
       }
-      const zipBlob = await zip.generateAsync({ type: "blob" })
+      const zipBlob = await zip.generateAsync({ type: "blob" });
       setZipLoading(false);
       saveAs(zipBlob, event.title);
     }
@@ -82,13 +82,17 @@ const Event = () => {
                 {selectedIndices.length} photo
                 {selectedIndices.length !== 1 ? "s" : ""}
               </p>
-              {zipLoading ? <Spinner /> : <div
-                onClick={async () => await generateZip()}
-                className="cursor-pointer text-blue-500 ml-4 flex items-center"
-              >
-                <FiDownload className="mr-2" size={15} />
-                Download all
-              </div>}
+              {zipLoading ? (
+                <Spinner />
+              ) : (
+                <div
+                  onClick={async () => await generateZip()}
+                  className="cursor-pointer text-blue-500 ml-4 flex items-center"
+                >
+                  <FiDownload className="mr-2" size={15} />
+                  Download all
+                </div>
+              )}
               <div
                 onClick={() => setSelectedIndices([])}
                 className="cursor-pointer text-red-500 ml-4 flex items-center"
@@ -99,10 +103,7 @@ const Event = () => {
             </div>
           )}
 
-          <div
-
-            className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-3 "
-          >
+          <div className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-3 ">
             {event.images.map((image, index) => (
               <EventImage
                 event={event}
@@ -119,6 +120,7 @@ const Event = () => {
               ></EventImage>
             ))}
           </div>
+          <div className="my-8"></div>
         </div>
       )}
     </Layout>

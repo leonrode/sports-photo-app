@@ -11,7 +11,11 @@ import { FiChevronLeft } from "react-icons/fi";
 
 import Link from "next/link";
 
-import { sortEventsByDate, filterEventsBySport } from "../../lib/utils";
+import {
+  sortEventsByDate,
+  filterEventsBySport,
+  filterEventsBySearch,
+} from "../../lib/utils";
 
 const Year = () => {
   const router = useRouter();
@@ -19,6 +23,8 @@ const Year = () => {
   const [originalEvents, setOrigiginalEvents] = useState([]);
   const [recentFirst, setRecentFirst] = useState(true);
   const [sport, setSport] = useState("All Sports");
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     if (router.isReady) {
       (async () => {
@@ -30,6 +36,13 @@ const Year = () => {
       })();
     }
   }, [router.isReady, recentFirst, sport]);
+
+  useEffect(() => {
+    if (search !== "") {
+      const filtered = filterEventsBySearch(events, search);
+      setEvents(filtered);
+    }
+  }, [search]);
 
   return (
     <Layout>
@@ -49,6 +62,7 @@ const Year = () => {
             className="border-b-[1px] border-b-gray bg-transparent outline-none w-full pb-2 text-xl"
             type="text"
             placeholder="Search for an event..."
+            onChange={(e) => setSearch(e.target.value)}
           ></input>
 
           <div className="flex items-center">

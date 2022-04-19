@@ -4,11 +4,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    screens: {
-      md: "1080px",
-    },
-
     extend: {
+      screens: {
+        md: "1080px",
+      },
       transitionProperty: {
         fade: "opacity, visibility",
       },

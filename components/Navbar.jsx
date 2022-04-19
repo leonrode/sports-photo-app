@@ -11,7 +11,12 @@ const Navbar = () => {
   return (
     <>
       <nav className="flex items-center justify-between px-8 w-screen h-24">
-        <Logo />
+        <div className="flex items-center">
+          <Logo />
+          <span className="ml-8">
+            <Link href="/socials">socials</Link>
+          </span>
+        </div>
         {/* <div className="hidden md:flex ml-16 items-center justify-between w-1/5">
           <Link href="/">home</Link>
         </div> */}

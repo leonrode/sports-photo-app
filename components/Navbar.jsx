@@ -16,14 +16,14 @@ const Navbar = () => {
           <Link href="/">home</Link>
         </div> */}
 
-        <div onClick={() => setShowMobileNav(true)} className="md:hidden">
+        {/* <div onClick={() => setShowMobileNav(true)} className="md:hidden">
           <FiMenu size={30} className="cursor-pointer text-black" />
-        </div>
+        </div> */}
       </nav>
-      <MobileNavScreen
+      {/* <MobileNavScreen
         toClose={() => setShowMobileNav(false)}
         show={showMobileNav}
-      />
+      /> */}
     </>
   );
 };

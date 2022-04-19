@@ -14,13 +14,6 @@ const MobileNavScreen = ({ show, toClose }) => {
         <Link href="/">home</Link>
       </span>
 
-      <span className="mt-8">
-        <Link href="/">about</Link>
-      </span>
-      <span className="mt-8">
-        <Link href="/">socials</Link>
-      </span>
-
       <FiX
         onClick={toClose}
         size={30}

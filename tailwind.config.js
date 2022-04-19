@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        md: "1080px",
+        lg: "1081px",
       },
       transitionProperty: {
         fade: "opacity, visibility",

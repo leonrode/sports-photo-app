@@ -4,6 +4,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      md: "1080px",
+    },
+
     extend: {
       transitionProperty: {
         fade: "opacity, visibility",
@@ -12,7 +16,7 @@ module.exports = {
         "light-bg": "#f6f6f6",
         gray: "#606060",
         black: "#423E37",
-        opaque: "rgba(0, 0, 0, 0.95)"
+        opaque: "rgba(0, 0, 0, 0.95)",
       },
     },
   },

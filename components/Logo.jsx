@@ -1,6 +1,12 @@
+import Link from "next/link";
+
 const Logo = () => {
   return (
-    <h1 className="text-2xl md:text-4xl font-regular w-fit">Elliott Zhang</h1>
+    <Link href="/">
+      <h1 className="cursor-pointer text-2xl md:text-4xl font-regular w-fit">
+        Elliott Zhang
+      </h1>
+    </Link>
   );
 };
 

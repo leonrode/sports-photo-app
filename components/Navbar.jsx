@@ -12,12 +12,9 @@ const Navbar = () => {
     <>
       <nav className="flex items-center justify-between md:justify-start px-8 w-screen h-24">
         <Logo />
-        <div className="hidden md:flex ml-16 items-center justify-between w-1/5">
+        {/* <div className="hidden md:flex ml-16 items-center justify-between w-1/5">
           <Link href="/">home</Link>
-
-          <Link href="/">about</Link>
-          <Link href="/">socials</Link>
-        </div>
+        </div> */}
 
         <div onClick={() => setShowMobileNav(true)} className="md:hidden">
           <FiMenu size={30} className="cursor-pointer text-black" />

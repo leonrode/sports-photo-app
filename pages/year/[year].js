@@ -87,7 +87,7 @@ const Year = () => {
             />
           </div>
 
-          <div className="mt-4 grid gap-y-8 gap-x-16 md:grid-cols-2 ">
+          <div className="mt-8 grid gap-y-8 gap-x-16 md:grid-cols-2 ">
             {events.map((event) => (
               <Event key={event.slug} event={event} />
             ))}

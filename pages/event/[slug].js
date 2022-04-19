@@ -24,18 +24,35 @@ const Event = () => {
 
   const generateZip = async () => {
     setZipLoading(true);
+
     if (selectedIndices.length > 0) {
       const zip = new JSZip();
+
+      let fileObjects = [];
+
       for (const index of selectedIndices) {
         const image = event.images[index];
         const blob = await axios.get(image.smaller, { responseType: "blob" });
-
-        zip.file(image.key, blob.data);
+        fileObjects.push(new File([blob.data], image.key));
       }
-      const zipBlob = await zip.generateAsync({ type: "blob" });
-      setZipLoading(false);
 
-      saveAs(zipBlob, event.title + ".zip");
+      setZipLoading(false);
+      if (
+        window.navigator &&
+        navigator.canShare &&
+        navigator.canShare(fileObjects)
+      ) {
+        await navigator.share({
+          title: event.title,
+          files: fileObjects,
+        });
+      } else {
+        for (const file of fileObjects) {
+          zip.file(file.name, file);
+        }
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        saveAs(zipBlob, event.title + ".zip");
+      }
     }
   };
 

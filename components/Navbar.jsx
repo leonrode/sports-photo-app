@@ -13,7 +13,7 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-8 w-screen h-24">
         <div className="flex items-center">
           <Logo />
-          <span className="ml-8">
+          <span className="ml-4 md:ml-8 font-normal">
             <Link href="/socials">socials</Link>
           </span>
         </div>
@@ -24,10 +24,10 @@ const Navbar = () => {
         {/* <div onClick={() => setShowMobileNav(true)} className="md:hidden">
           <FiMenu size={30} className="cursor-pointer text-black" />
         </div> */}
-        <h1 className="font-normal">
-          Built by{" "}
+        <h1 className="font-light text-sm flex items-center">
+          <span className="hidden md:block mr-2">Built by</span>{" "}
           <Link href="https://leonro.de">
-            <span className="cursor-pointer hover:underline">Leon Rode</span>
+            <span className="font-normal cursor-pointer hover:underline">Leon Rode</span>
           </Link>
         </h1>
       </nav>

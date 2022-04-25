@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 
+import MyLogo from "./MyLogo";
+
 import MobileNavScreen from "./MobileNavScreen";
 import Logo from "./Logo";
 const Navbar = () => {
@@ -24,12 +26,18 @@ const Navbar = () => {
         {/* <div onClick={() => setShowMobileNav(true)} className="md:hidden">
           <FiMenu size={30} className="cursor-pointer text-black" />
         </div> */}
-        <h1 className="font-light text-sm flex items-center">
+        {/* <h1 className="font-light text-sm flex items-center">
           <span className="hidden md:block mr-2">Built by</span>{" "}
           <Link href="https://leonro.de">
-            <span className="font-normal cursor-pointer hover:underline">Leon Rode</span>
+            <span className="font-normal cursor-pointer hover:underline">
+              Leon Rode
+            </span>
           </Link>
-        </h1>
+        </h1> */}
+        <div className="flex items-center text-[#e21ecb]">
+          <span className="hidden md:block">Leon Rode</span>
+          <MyLogo />
+        </div>
       </nav>
       {/* <MobileNavScreen
         toClose={() => setShowMobileNav(false)}

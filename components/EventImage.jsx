@@ -18,6 +18,7 @@ const EventImage = ({
   link,
   smallerLink,
   event,
+  imageIndex,
 }) => {
   const [fs, setFs] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -84,6 +85,7 @@ const EventImage = ({
           link={link}
           smallerLink={smallerLink}
           toClose={() => setFs(false)}
+          imageIndex={imageIndex}
         />
       )}
     </div>

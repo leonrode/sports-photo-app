@@ -136,6 +136,7 @@ const Event = () => {
                 key={image.key}
                 link={image.link}
                 smallerLink={image.smaller}
+                imageIndex={index}
               ></EventImage>
             ))}
           </div>
